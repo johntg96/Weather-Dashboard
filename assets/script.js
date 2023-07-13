@@ -39,7 +39,7 @@ const fetchCoords = (search) => {
 const addHistory = (search) => {
   if (!searchHistory.includes(search)) {
     searchHistory.push(search);
-    historyContent.append(`<button class="history-item" onclick="searchFormSubmit('${search}')">${search}</button>`);
+    historyContent.append(`<button class="history-item btn btn-secondary" onclick="searchFormSubmit('${search}')">${search}</button>`);
   }
 }
 
