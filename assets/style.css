@@ -1,0 +1,14 @@
+header {
+  background-color: black;
+  color: white;
+}
+
+#search-sidepanel {
+  background-color: lightgray;
+}
+
+#search-box, #search-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
