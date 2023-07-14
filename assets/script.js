@@ -72,7 +72,7 @@ const fetchWeather = (coordsData) => {
 
 // openweathermap returns temp data in kelvin so this function is to convert to farenheit.
 function kelvinToF(kelvinTemp) {
-
+  return parseInt((kelvinTemp -273.15) * 9 / 5 + 32);
 }
 
 const renderForecast = (city, forecast) => {
@@ -92,7 +92,7 @@ const renderForecast = (city, forecast) => {
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Day ${i + 1}</h5>
-          <p class="card-text">Temperature: ${forecast[i].main.temp}</p>
+          <p class="card-text">Temperature: ${kelvinToF(forecast[i].main.temp)}</p>
           <p class="card-text">Description: ${forecast[i].weather[0].description}</p>
         </div>
       </div>
