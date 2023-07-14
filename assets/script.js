@@ -1,3 +1,5 @@
+// TO-DO: Implement local storage for saving search history to browser
+
 // global variables
 const searchBox = $(`#search-box`);
 const searchBtn = $(`#search-btn`);
@@ -79,8 +81,8 @@ const renderForecast = (city, forecast) => {
   console.log(forecast);
 
   mainContent.html(`
-    <h4 class="forecast-day-title">${city}</h4>
-    <section class="five-day-forecast">
+    <h4 class="row justify-content-center mt-3 forecast-day-title">${city}</h4>
+    <section class="row justify-content-center five-day-forecast">
     </section>
   `);
 
@@ -89,17 +91,15 @@ const renderForecast = (city, forecast) => {
   for (let i = 0; i < forecast.length; i++) {
     // this is the HTML injected to create the day
     mainContentForecast.append(`
-      <div class="card">
+      <div class="card mb-2" style="width: 80%">
         <div class="card-body">
-          <h5 class="card-title">Day ${i + 1}</h5>
+          <h5 class="card-title" style="font-family:'Bebas Neue',sans-serif;">Day ${i + 1}</h5>
           <p class="card-text">Temperature: ${kelvinToF(forecast[i].main.temp)}</p>
           <p class="card-text">Description: ${forecast[i].weather[0].description}</p>
         </div>
       </div>
     `)
   }
-
-  
 }
 
 // after search button is clicked, prevent browser refresh and handle search form submission

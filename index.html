@@ -9,15 +9,15 @@
   <link rel="stylesheet" type="text/css" href="./assets/style.css">
   <title>Weather Dashboard</title>
 </head>
-<body>
+<body  class="d-flex flex-column min-vh-100">
   <header class="container-fluid">
-    <h2 class="row justify-content-center pt-4 pb-4">Weather Dashboard</h1>
+    <h1 class="row justify-content-center pt-3 pb-3">Weather Dashboard</h1>
   </header>
-  <main class="container">
+  <main class="container-fluid">
     <section class="row">
       <div id="search-sidepanel" class="col-3">
         <form>
-          <input  id="search-box" class="form-control" type="text" placeholder="location">
+          <input  id="search-box" class="form-control mt-4" type="text" placeholder="location">
           <button id="search-btn" class="btn btn-primary">Search</button>
         </form>
         <hr/>
@@ -26,12 +26,12 @@
         </div>
       </div>
       <div id="content" class="col-9">
-        <h3 class="row justify-content-center">Fetch Results:</h3>
+        <h3 class="row justify-content-center"></h3>
       </div>
     </section>
   </main>
-  <footer>
-
+  <footer class="container-fluid mt-auto">
+    <a class="row justify-content-center" href="https://github.com/johntg96/module6_weather_dashboard">module6_weather_dashboard</a>
   </footer>
   <!-- JQuery CDN-->
   <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>

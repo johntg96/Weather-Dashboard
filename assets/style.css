@@ -1,10 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital@1&display=swap');
+
 header {
   background-color: black;
   color: white;
 }
 
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: white;
+}
+
+header h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: lightblue;
+}
+
+.forecast-day-title {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
 #search-sidepanel {
   background-color: lightgray;
+  -webkit-box-shadow: 3px 3px 8px 3px rgba(184,184,184,1);
+  -moz-box-shadow: 3px 3px 8px 3px rgba(184,184,184,1);
+  box-shadow: 3px 3px 8px 3px rgba(184,184,184,1);
 }
 
 #search-box, #search-btn {
@@ -14,4 +33,18 @@ header {
 
 .history-item {
   margin: 4px;
+}
+
+footer {
+  background-color: black;
+}
+
+footer a {
+  color: white;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+footer a:hover {
+  color: blue;
 }
