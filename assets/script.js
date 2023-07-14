@@ -13,6 +13,25 @@ const openWeatherMapApiKey = '38d00f5de5ce24fe5aa235ca54fea8f2';
 // an array of all successful weather location searches (ones returned data)
 let searchHistory = [];
 
+// this adds a button of the search that returned a successful response from the API to the '.search-history' div
+const addHistory = (search) => {
+  if (!searchHistory.includes(search)) {
+    searchHistory.push(search);
+    historyContent.append(`<button class="history-item btn btn-secondary" onclick="searchFormSubmit('${search}')">${search}</button>`);
+    localStorage.setItem('searchHistoryStorage', JSON.stringify(searchHistory));
+  }
+}
+
+// update searchHistory array with weather locations that have been previously saved in local storage
+if(localStorage.getItem(`searchHistoryStorage`) !== null) {
+  searchHistoryStorage = JSON.parse(localStorage.getItem(`searchHistoryStorage`));
+  for (let i = 0; i < searchHistoryStorage.length; i++) {
+    searchHistory.push(searchHistoryStorage[i]);
+    addHistory(searchHistoryStorage[i]);
+    historyContent.append(`<button class="history-item btn btn-secondary" onclick="searchFormSubmit('${searchHistoryStorage[i]}')">${searchHistoryStorage[i]}</button>`);
+  }
+}
+
 const searchFormSubmit = (search) => {
   fetchCoords(search);
 }
@@ -36,14 +55,6 @@ const fetchCoords = (search) => {
     .catch(function (err) {
       console.error(err);
     });
-}
-
-// this adds a button of the search that returned a successful response from the API to the '.search-history' div
-const addHistory = (search) => {
-  if (!searchHistory.includes(search)) {
-    searchHistory.push(search);
-    historyContent.append(`<button class="history-item btn btn-secondary" onclick="searchFormSubmit('${search}')">${search}</button>`);
-  }
 }
 
 // fetches the weather with the previously fetched location coordinates
