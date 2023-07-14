@@ -59,12 +59,17 @@ const fetchWeather = (coordsData) => {
       return response.json();
     })
     .then(function(data) {
+      console.log(data);
       let fiveDayForecast = [];
       // The api provides 40 forecasts per 5 day period but we only want 1 per day (5 total).
       // This loop gets every 8th forecast from the 40 to make the 5 day forecast (fiveDayForecast) array.
+      // this INCLUDES the current day forecast.
       for (let i = 0; i < 40; i += 8) {
         fiveDayForecast.push(data.list[i])
       }
+      // add the last day of the forecast to the list (day 5)
+      fiveDayForecast.push(data.list.pop());
+
       renderForecast(data.city.name, fiveDayForecast);
     })
     .catch(function(err) {
@@ -88,14 +93,29 @@ const renderForecast = (city, forecast) => {
 
   let mainContentForecast = $(`.five-day-forecast`);
 
+  // the date is the current date, then return string 'today'
+  function checkCurrentDay(day) {
+    console.log(day);
+    let currentDay = dayjs().format(`dddd`);
+    let forecastDate = forecast[day].dt_txt
+    let forecastDay = dayjs(forecastDate).format('dddd');
+    if (forecastDay === currentDay) {
+      return `Today`;
+    } else {
+      return dayjs(forecast[day].dt_txt).format("dddd[, ]MMM D");
+    }
+  }
+
   for (let i = 0; i < forecast.length; i++) {
     // this is the HTML injected to create the day
     mainContentForecast.append(`
       <div class="card mb-2" style="width: 80%">
         <div class="card-body">
-          <h5 class="card-title" style="font-family:'Bebas Neue',sans-serif;">Day ${i + 1}</h5>
-          <p class="card-text">Temperature: ${kelvinToF(forecast[i].main.temp)}</p>
+          <h5 class="card-title" style="font-family:'Bebas Neue',sans-serif;">${checkCurrentDay(i)}</h5>
+          <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(forecast[i].main.temp)}°F</strong></span></p>
           <p class="card-text">Description: ${forecast[i].weather[0].description}</p>
+          <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${forecast[i].wind.speed}</span></p>
+          <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${forecast[i].main.humidity}</span></p>
         </div>
       </div>
     `)

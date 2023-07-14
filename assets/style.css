@@ -3,6 +3,7 @@
 header {
   background-color: black;
   color: white;
+  border-bottom: 9px solid lightblue;
 }
 
 body {
@@ -47,4 +48,8 @@ footer a {
 
 footer a:hover {
   color: blue;
+}
+
+.card-text {
+  margin: 1px;
 }
