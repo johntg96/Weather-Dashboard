@@ -53,3 +53,8 @@ footer a:hover {
 .card-text {
   margin: 1px;
 }
+
+.card-header-today {
+  background-color: black;
+  color: white;
+}

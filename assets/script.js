@@ -106,7 +106,6 @@ const renderForecast = (city, forecast) => {
 
   // the date is the current date, then return string 'today'
   function checkCurrentDay(day) {
-    console.log(day);
     let currentDay = dayjs().format(`dddd`);
     let forecastDate = forecast[day].dt_txt
     let forecastDay = dayjs(forecastDate).format('dddd');
@@ -117,20 +116,44 @@ const renderForecast = (city, forecast) => {
     }
   }
 
-  for (let i = 0; i < forecast.length; i++) {
-    // this is the HTML injected to create the day
-    mainContentForecast.append(`
-      <div class="card mb-2" style="width: 80%">
-        <div class="card-body">
-          <h5 class="card-title" style="font-family:'Bebas Neue',sans-serif;">${checkCurrentDay(i)}</h5>
-          <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(forecast[i].main.temp)}°F</strong></span></p>
-          <p class="card-text">Description: ${forecast[i].weather[0].description}</p>
-          <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${forecast[i].wind.speed}</span></p>
-          <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${forecast[i].main.humidity}</span></p>
+  forecast.forEach((day, index) => {
+    // This is the HTML injected to create the weather day forecast bootstrap cards.
+    // Today's forecast:
+    if (index == 0) {
+      mainContentForecast.append(`
+      <div class="row">
+        <div class="card mt-2">
+          <div class="card-header card-header-today row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 20px;">
+            ${checkCurrentDay(index)}
+          </div>
+            <div class="card-body">
+              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
+              <p class="card-text">Description: ${day.weather[0].description}</p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
+              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
+            </div>
         </div>
-      </div>
-    `)
-  }
+        </div>
+      `)
+    } else {
+      // 5-day forecast:
+      mainContentForecast.append(`
+      <div class="col-md-4">
+        <div class="card mt-2">
+          <div class="card-header row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 20px;">
+            ${checkCurrentDay(index)}
+          </div>
+            <div class="card-body">
+              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
+              <p class="card-text">Description: ${day.weather[0].description}</p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
+              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
+            </div>
+        </div>
+        </div>
+      `)
+    }
+  });
 }
 
 // after search button is clicked, prevent browser refresh and handle search form submission
