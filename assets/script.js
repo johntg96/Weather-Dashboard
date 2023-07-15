@@ -122,8 +122,8 @@ const renderForecast = (city, forecast) => {
     if (index == 0) {
       mainContentForecast.append(`
       <div class="row">
-        <div class="card mt-2">
-          <div class="card-header card-header-today row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 24px;color: yellow;">
+        <div class="card mt-2 mb-4 box-shadow">
+          <div class="card-header card-header-today row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 24px;color: white;">
             ${checkCurrentDay(index)}
           </div>
             <div class="card-body">
