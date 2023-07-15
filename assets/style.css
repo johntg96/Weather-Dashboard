@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Agdasima&family=Lilita+One&display=swap');
+
+/* CSS variables */
+:root {
+  --blue-btn-color: #0d6efd;
+}
 
 header {
   background-color: black;
   color: white;
-  border-bottom: 9px solid lightblue;
+  border-bottom: 4px solid yellow;
 }
 
 body {
@@ -11,13 +17,14 @@ body {
   background-color: white;
 }
 
-header h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  color: lightblue;
+
+header h3 {
+  font-family: 'Agdasima', sans-serif;
+  color: white;
 }
 
-.forecast-day-title {
-  font-family: 'Bebas Neue', sans-serif;
+header h1 {
+  color: yellow;
 }
 
 #search-sidepanel {
@@ -32,22 +39,45 @@ header h1 {
   margin-top: 10px;
 }
 
+#search-btn {
+  border-style: none;
+  font-family: arial;
+}
+
+#search-btn:hover {
+  background-color: yellow;
+  color: black;
+}
+
 .history-item {
   margin: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+
+.history-item:hover {
+  background-color: var(--blue-btn-color);
+}
+
+.history-item:focus {
+  background-color: yellow;
+  color: black;
 }
 
 footer {
   background-color: black;
+  border-top: 2px solid yellow;
 }
 
 footer a {
   color: white;
   font-family: monospace;
   font-size: 12px;
+  padding: 2px;
 }
 
 footer a:hover {
-  color: lightblue;
+  color: yellow;
 }
 
 .card-text {
@@ -57,4 +87,9 @@ footer a:hover {
 .card-header-today {
   background-color: black;
   color: white;
+}
+
+.forecast-day-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
 }

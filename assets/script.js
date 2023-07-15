@@ -97,7 +97,7 @@ const renderForecast = (city, forecast) => {
   console.log(forecast);
 
   mainContent.html(`
-    <h4 class="row justify-content-center mt-3 forecast-day-title">${city}</h4>
+    <h2 class="row justify-content-center mt-3 forecast-day-title">${city}</h2>
     <section class="row justify-content-center five-day-forecast">
     </section>
   `);
@@ -123,7 +123,7 @@ const renderForecast = (city, forecast) => {
       mainContentForecast.append(`
       <div class="row">
         <div class="card mt-2">
-          <div class="card-header card-header-today row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 20px;">
+          <div class="card-header card-header-today row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 24px;color: yellow;">
             ${checkCurrentDay(index)}
           </div>
             <div class="card-body">
