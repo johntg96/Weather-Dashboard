@@ -130,6 +130,33 @@ const renderForecast = (city, forecast) => {
     }
   }
 
+  function addDescription(weatherDescription) {
+    switch (weatherDescription) {
+      case `light rain`:
+        return `light rain 	&#x1F326;`
+      case `overcast clouds`:
+        return `overcast clouds &#x2601;`
+      case `clear sky`:
+        return `clear sky &#x2600;`;
+      case `few clouds`:
+        return `few clouds &#x26C5;`
+      case `scattered clouds`:
+        return `scattered clouds &#x1F324;`;
+      case `broken clouds`:
+        return `broken clouds &#x26C5;`;
+      case `shower rain`:
+        return 	`shower rain &#x2614;`;
+      case `rain`:
+        return `rain 	&#x1F327;`
+      case `thunderstorm`:
+        return `thunderstorm &#x1F329;`
+      case `snow`:
+        return `snow &#x2603;`
+      case `mist`:
+        return `mist`; // cannot find an HTML entity for this one (yet)
+    }
+  }
+
   forecast.forEach((day, index) => {
     // This is the HTML injected to create the weather day forecast bootstrap cards.
     // Today's forecast:
@@ -142,7 +169,7 @@ const renderForecast = (city, forecast) => {
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
-              <p class="card-text">Description: ${day.weather[0].description}</p>
+              <p class="card-text">Description: ${addDescription(day.weather[0].description)}</p>
               <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
             </div>
@@ -159,7 +186,7 @@ const renderForecast = (city, forecast) => {
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
-              <p class="card-text">Description: ${day.weather[0].description}</p>
+              <p class="card-text">Description: ${addDescription(day.weather[0].description)}</p>
               <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
             </div>
