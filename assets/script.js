@@ -1,5 +1,3 @@
-// TO-DO: Implement local storage for saving search history to browser
-
 // global variables
 const searchBox = $(`#search-box`);
 const searchBtn = $(`#search-btn`);
@@ -74,7 +72,7 @@ const fetchWeather = (coordsData) => {
       let fiveDayForecast = [];
       // The api provides 40 forecasts per 5 day period but we only want 1 per day (5 total).
       // This loop gets every 8th forecast from the 40 to make the 5 day forecast (fiveDayForecast) array.
-      // this INCLUDES the current day forecast.
+      // This may or may NOT(!) include the current day forecast.
       for (let i = 0; i < 40; i += 8) {
         fiveDayForecast.push(data.list[i])
       }
@@ -202,4 +200,3 @@ searchBtn.on(`click`, (e) => {
   e.preventDefault();
   searchFormSubmit(searchBox.val());
 });
-
