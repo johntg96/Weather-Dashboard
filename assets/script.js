@@ -130,8 +130,8 @@ const renderForecast = (city, forecast) => {
     }
   }
 
-  function addDescription(weatherDescription) {
-    switch (weatherDescription) {
+  function addDescription(apiWeatherDescription) {
+    switch (apiWeatherDescription) {
       case `light rain`:
         return `light rain 	&#x1F326;`
       case `overcast clouds`:
