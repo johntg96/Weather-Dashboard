@@ -79,6 +79,7 @@ const fetchWeather = (coordsData) => {
 
       let lastDayObj = data.list.pop();
       let lastDayObjDate = lastDayObj.dt_txt;
+      let lastDayForecastDate = fiveDayForecast[fiveDayForecast.length - 1].dt_txt;
 
       // Sometimes (evening times) openweathermap will give data for 5 days instead of 6.
       // When this happens, days 4 and 5 of the 5-day forecast have the same date and todays date is not included.
@@ -86,7 +87,10 @@ const fetchWeather = (coordsData) => {
       // However, I can prevent duplicate dates from being added to the forecast array with the following if/else statement.
       ////////// Summary: If only 5 days of weather data are supplied by the API, then 5 days of weather data are shown.
       //////////  If 6 days of weather data are supplide by the API, then 6 days of weather data are shown!
-      if (lastDayObjDate !== fiveDayForecast[fiveDayForecast.length - 1]) {
+      console.log(dayjs(lastDayObjDate).format(`YYYY MM DD`));
+      console.log(dayjs(lastDayForecastDate).format(`YYYY MM DD`));
+
+      if (dayjs(lastDayObjDate).format(`YYYY MM DD`) !== dayjs(fiveDayForecast[fiveDayForecast.length - 1].dt_txt).format(`YYYY MM DD`)) {
         fiveDayForecast.push(data.list.pop());
         console.log(`Last date of forecast data does not equal last date of forecast array. Added last day (day 6 of forecast array, day 5 of 5 day not including today).`);
       } else {
