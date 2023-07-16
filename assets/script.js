@@ -76,7 +76,7 @@ const fetchWeather = (coordsData) => {
       for (let i = 0; i < 40; i += 8) {
         fiveDayForecast.push(data.list[i])
       }
-      // add the last day of the forecast to the list (day 6 -> last day of 5-day) 
+
       let lastDayObj = data.list.pop();
       let lastDayObjDate = lastDayObj.dt_txt;
 
