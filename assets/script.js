@@ -128,30 +128,42 @@ const renderForecast = (city, forecast) => {
     }
   }
 
-  function addDescription(apiWeatherDescription) {
-    switch (apiWeatherDescription) {
-      case `light rain`:
-        return `light rain 	&#x1F326;`
-      case `overcast clouds`:
-        return `overcast clouds &#x2601;`
-      case `clear sky`:
-        return `clear sky &#x2600;`;
-      case `few clouds`:
-        return `few clouds &#x26C5;`
-      case `scattered clouds`:
-        return `scattered clouds &#x1F324;`;
-      case `broken clouds`:
-        return `broken clouds &#x26C5;`;
-      case `shower rain`:
-        return 	`shower rain &#x2614;`;
-      case `rain`:
-        return `rain 	&#x1F327;`
-      case `thunderstorm`:
-        return `thunderstorm &#x1F329;`
-      case `snow`:
-        return `snow &#x2603;`
-      case `mist`:
-        return `mist`; // cannot find an HTML entity for this one (yet)
+  function addDescription(apiWeatherMain, apiWeatherDesc) {
+    switch (apiWeatherMain) {
+      case `Thunderstorm`:
+        return `Thunderstorm &#x1F329;<br/>${apiWeatherDesc}`;
+      case `Drizzle`:
+        return `Drizzle &#x2602;<br/>${apiWeatherDesc}`;
+      case `Rain`:
+          return `Rain &#x2614;<br/>${apiWeatherDesc}`;
+      case `Snow`:
+          return `Snow &#x2603;<br/>${apiWeatherDesc}`;
+      case `Mist`:
+        return
+      case `Smoke &#x2601;<br/>${apiWeatherDesc}`:
+        return
+      case `Haze &#x1F32B;<br/>${apiWeatherDesc}`:
+        return
+      case `Dust<br/>${apiWeatherDesc}`:
+        return
+      case `Fog`:
+        return `Fog &#x1F32B;<br/>${apiWeatherDesc}`;
+      case `Sand`:
+        return
+      case `Dust<br/>${apiWeatherDesc}`:
+          return
+      case `Ash<br/>${apiWeatherDesc}`:
+        return
+      case `Squall<br/>${apiWeatherDesc}`:
+        return
+      case `Tornado`:
+        return `Tornado &#x1F32A;<br/>${apiWeatherDesc}`;
+      case `Clear`:
+        return `Clear &#x263C;<br/>${apiWeatherDesc}`
+      case `Clouds`:
+        return `Clouds &#x2601;<br/>${apiWeatherDesc}` 
+      default:
+        return `${apiWeatherMain}</br>${apiWeatherDesc}`;
     }
   }
 
@@ -167,7 +179,7 @@ const renderForecast = (city, forecast) => {
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
-              <p class="card-text">Description: ${addDescription(day.weather[0].description)}</p>
+              <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
               <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
             </div>
@@ -184,7 +196,7 @@ const renderForecast = (city, forecast) => {
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
-              <p class="card-text">Description: ${addDescription(day.weather[0].description)}</p>
+              <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
               <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
             </div>
