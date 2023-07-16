@@ -131,39 +131,39 @@ const renderForecast = (city, forecast) => {
   function addDescription(apiWeatherMain, apiWeatherDesc) {
     switch (apiWeatherMain) {
       case `Thunderstorm`:
-        return `Thunderstorm &#x1F329;<br/>${apiWeatherDesc}`;
+        return `Thunderstorm &#x1F329;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
       case `Drizzle`:
-        return `Drizzle &#x2602;<br/>${apiWeatherDesc}`;
+        return `Drizzle &#x2602;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
       case `Rain`:
-          return `Rain &#x2614;<br/>${apiWeatherDesc}`;
+          return `Rain &#x2614;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
       case `Snow`:
-          return `Snow &#x2603;<br/>${apiWeatherDesc}`;
+          return `Snow &#x2603;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
       case `Mist`:
         return
-      case `Smoke &#x2601;<br/>${apiWeatherDesc}`:
+      case `Smoke &#x2601;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
         return
-      case `Haze &#x1F32B;<br/>${apiWeatherDesc}`:
+      case `Haze &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
         return
-      case `Dust<br/>${apiWeatherDesc}`:
+      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
         return
       case `Fog`:
-        return `Fog &#x1F32B;<br/>${apiWeatherDesc}`;
+        return `Fog &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
       case `Sand`:
         return
-      case `Dust<br/>${apiWeatherDesc}`:
+      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
           return
-      case `Ash<br/>${apiWeatherDesc}`:
+      case `Ash<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`:
         return
-      case `Squall<br/>${apiWeatherDesc}`:
+      case `Squall<br/>$<span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`:
         return
       case `Tornado`:
-        return `Tornado &#x1F32A;<br/>${apiWeatherDesc}`;
+        return `Tornado &#x1F32A;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`;
       case `Clear`:
-        return `Clear &#x263C;<br/>${apiWeatherDesc}`
+        return `Clear &#x263C;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`
       case `Clouds`:
-        return `Clouds &#x2601;<br/>${apiWeatherDesc}` 
+        return `Clouds &#x2601;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>` 
       default:
-        return `${apiWeatherMain}</br>${apiWeatherDesc}`;
+        return `${apiWeatherMain}</br><span style="color:gray;"><span style="color:gray;font-family:">- ${apiWeatherDesc} -</span></span>`;
     }
   }
 
