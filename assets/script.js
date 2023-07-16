@@ -94,7 +94,7 @@ const fetchWeather = (coordsData) => {
         fiveDayForecast.push(data.list.pop());
         console.log(`Last date of forecast data does not equal last date of forecast array. Added last day (day 6 of forecast array, day 5 of 5 day not including today).`);
       } else {
-        console.log(`Last date of forecast array and last date of api data.list match. API not including today's weather in fetched results.`);
+        console.log(`Last date of forecast array and last date of api data.list match. The API is not including today's weather in fetched results :/`);
       }
 
       renderForecast(data.city.name, fiveDayForecast);
