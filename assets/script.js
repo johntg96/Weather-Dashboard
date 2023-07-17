@@ -61,9 +61,9 @@ const fetchWeather = (coordsData) => {
   let lat = coordsData.lat;
   let lon = coordsData.lon;
   // console.log(`latitude: ${lat}, longitude:${lon}`);
-  let apiUrl = `${openWeatherMapRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
+  let apiUrl = `${openWeatherMapRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}&units=imperial`;
 
-  let currentDayApiUrl = `${openWeatherMapRootUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
+  let currentDayApiUrl = `${openWeatherMapRootUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}&units=imperial`;
 
   fetch(apiUrl)
   .then(function(response) {
@@ -126,16 +126,6 @@ const fetchWeather = (coordsData) => {
     .catch(function(err) {
       console.log(err);
     })
-}
-
-// openweathermap returns temp data in kelvin so this function is to convert to farenheit.
-function kelvinToF(kelvinTemp) {
-  return parseInt((kelvinTemp -273.15) * 9 / 5 + 32);
-}
-
-function meterToMph(meterSpeed) {
-  let calc = meterSpeed * 2.24;
-  return calc.toFixed(2);
 }
 
 const renderForecast = (city, forecast) => {
@@ -212,11 +202,11 @@ const renderForecast = (city, forecast) => {
             ${checkCurrentDay(index)}
           </div>
             <div class="card-body">
-              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
-              <p class="card-text"><span style="color:gray;">- high of ${kelvinToF(day.main.temp_max)}</span></p>
-              <p class="card-text"><span style="color:gray;">- low of ${kelvinToF(day.main.temp_min)}</span></p>
+              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${parseInt(day.main.temp)}°F</strong></span></p>
+              <p class="card-text"><span style="color:gray;">- high of ${parseInt(day.main.temp_max)}</span></p>
+              <p class="card-text"><span style="color:gray;">- low of ${parseInt(day.main.temp_min)}</span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
-              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${meterToMph(day.wind.speed)} mph</span></p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${parseInt(day.wind.speed)} mph</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}%</span></p>
             </div>
         </div>
@@ -231,10 +221,10 @@ const renderForecast = (city, forecast) => {
             ${checkCurrentDay(index)}
           </div>
             <div class="card-body">
-              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
+              <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${parseInt(day.main.temp)}°F</strong></span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
-              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${meterToMph(day.wind.speed)} mph</span></p>
-              <p class="card-text"><span style="color:gray;font-size:14px;">- gusts up to ${meterToMph(day.wind.gust)} mph</p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${parseInt(day.wind.speed)} mph</span></p>
+              <p class="card-text"><span style="color:gray;font-size:14px;">- gusts up to ${parseInt(day.wind.gust)} mph</p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}%</span></p>
             </div>
         </div>
