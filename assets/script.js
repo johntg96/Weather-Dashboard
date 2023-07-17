@@ -133,6 +133,11 @@ function kelvinToF(kelvinTemp) {
   return parseInt((kelvinTemp -273.15) * 9 / 5 + 32);
 }
 
+function meterToMph(meterSpeed) {
+  let calc = meterSpeed * 2.24;
+  return calc.toFixed(2);
+}
+
 const renderForecast = (city, forecast) => {
   console.log(forecast);
 
@@ -151,7 +156,7 @@ const renderForecast = (city, forecast) => {
     let forecastDay = dayjs.unix(forecastUnixTimestamp).format('dddd[, ]MMM D');
     //console.log(`current day is: ${currentDay}\ncomparison day is: ${forecastDay}`);
     if (forecastDay === currentDay) {
-      return `Today`;
+      return `Currently`;
     } else {
       return forecastDay;
     }
@@ -211,8 +216,8 @@ const renderForecast = (city, forecast) => {
               <p class="card-text"><span style="color:gray;">- high of ${kelvinToF(day.main.temp_max)}</span></p>
               <p class="card-text"><span style="color:gray;">- low of ${kelvinToF(day.main.temp_min)}</span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
-              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
-              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${meterToMph(day.wind.speed)} mph</span></p>
+              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}%</span></p>
             </div>
         </div>
         </div>
@@ -228,8 +233,9 @@ const renderForecast = (city, forecast) => {
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
-              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
-              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${meterToMph(day.wind.speed)} mph</span></p>
+              <p class="card-text"><span style="color:gray;font-size:14px;">- gusts up to ${meterToMph(day.wind.gust)} mph</p>
+              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}%</span></p>
             </div>
         </div>
         </div>
