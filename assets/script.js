@@ -60,7 +60,7 @@ const fetchWeather = (coordsData) => {
   // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
   let lat = coordsData.lat;
   let lon = coordsData.lon;
-  console.log(`latitude: ${lat}, longitude:${lon}`);
+  // console.log(`latitude: ${lat}, longitude:${lon}`);
   let apiUrl = `${openWeatherMapRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
 
   let currentDayApiUrl = `${openWeatherMapRootUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
@@ -70,7 +70,6 @@ const fetchWeather = (coordsData) => {
     return response.json();
   })
   .then(function(data) {
-    console.log(data);
     let fiveDayForecast = [];
     // The api provides 40 forecasts per 5 day period but we only want 1 per day (5 total).
     // This loop gets every 8th forecast from the 40 to make the 5 day forecast (fiveDayForecast) array.
@@ -89,8 +88,8 @@ const fetchWeather = (coordsData) => {
     // However, I can prevent duplicate dates from being added to the forecast array with the following if/else statement.
     ////////// Summary: If only 5 days of weather data are supplied by the API, then 5 days of weather data are shown.
     //////////  If 6 days of weather data are supplide by the API, then 6 days of weather data are shown!
-    console.log(dayjs.unix(lastDayObjDate).format(`YYYY MM DD`));
-    console.log(dayjs.unix(lastDayForecastDate).format(`YYYY MM DD`));
+    // console.log(dayjs.unix(lastDayObjDate).format(`YYYY MM DD`));
+    // console.log(dayjs.unix(lastDayForecastDate).format(`YYYY MM DD`));
 
     if (dayjs(lastDayObjDate).format(`YYYY MM DD`) !== dayjs.unix(lastDayForecastDate).format(`YYYY MM DD`)) {
       fiveDayForecast.push(data.list.pop());
@@ -100,10 +99,10 @@ const fetchWeather = (coordsData) => {
         })
         .then(function(data) {
           console.log(`Last date of forecast data does not equal last date of forecast array. Added last day (day 6 of forecast array, day 5 of 5 day not including today).`);
-          console.log(fiveDayForecast);
-          console.log(fiveDayForecast.splice(0, 1, data));
-          fiveDayForecast.splice(0, 1, data);
-          console.log(fiveDayForecast);
+          // console.log(fiveDayForecast);
+          // console.log(fiveDayForecast.splice(0, 1, data));
+          fiveDayForecast.splice(0, 1, data); // replace first days weather data with data from this fetch call
+          // console.log(fiveDayForecast);
           renderForecast(fiveDayForecast[0].name, fiveDayForecast);
         })
         .catch(function(err) {
@@ -115,7 +114,7 @@ const fetchWeather = (coordsData) => {
           return response.json();
         })
         .then(function(data) {
-          fiveDayForecast.splice(0, 0, data);
+          fiveDayForecast.splice(0, 0, data); // add first days weather data with data from this fetch call
           console.log(`Last date of forecast array and last date of api data.list match. The API is not including today's weather in fetched results so they have been pulled seperately`);
           renderForecast(fiveDayForecast[0].name, fiveDayForecast);
         })
