@@ -63,6 +63,8 @@ const fetchWeather = (coordsData) => {
   console.log(`latitude: ${lat}, longitude:${lon}`);
   let apiUrl = `${openWeatherMapRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
 
+  let currentDayApiUrl = `${openWeatherMapRootUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherMapApiKey}`;
+
   fetch(apiUrl)
     .then(function(response) {
       return response.json();
@@ -95,6 +97,15 @@ const fetchWeather = (coordsData) => {
         console.log(`Last date of forecast data does not equal last date of forecast array. Added last day (day 6 of forecast array, day 5 of 5 day not including today).`);
       } else {
         console.log(`Last date of forecast array and last date of api data.list match. The API is not including today's weather in fetched results :/`);
+        fetch(currentDayApiUrl)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(data) {
+            fiveDayForecast.splice(1, 0, data);
+            fiveDayForecast[0].dt_txt = dayjs().format(`YYYY-MM-DD`)
+            console.log(fiveDayForecast);
+          })
       }
 
       renderForecast(data.city.name, fiveDayForecast);
@@ -122,52 +133,53 @@ const renderForecast = (city, forecast) => {
 
   // the date is the current date, then return string 'today'
   function checkCurrentDay(day) {
-    let currentDay = dayjs().format(`dddd`);
-    let forecastDate = forecast[day].dt_txt
-    let forecastDay = dayjs(forecastDate).format('dddd');
+    let currentDay = dayjs().format(`YYYY MM DD`);
+    let forecastDate = forecast[day].dt
+    let forecastDay = dayjs.unix(forecastDate).format('YYYY MM DD');
+    console.log(forecast[day].dt);
     if (forecastDay === currentDay) {
       return `Today`;
     } else {
-      return dayjs(forecast[day].dt_txt).format("dddd[, ]MMM D");
+      return dayjs.unix(forecast[day].dt).format("dddd[, ]MMM D");
     }
   }
 
   function addDescription(apiWeatherMain, apiWeatherDesc) {
     switch (apiWeatherMain) {
       case `Thunderstorm`:
-        return `Thunderstorm &#x1F329;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
+        return `Thunderstorm &#x1F329;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Drizzle`:
-        return `Drizzle &#x2602;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
+        return `Drizzle &#x2602;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Rain`:
-          return `Rain &#x2614;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
+          return `Rain &#x2614;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Snow`:
-          return `Snow &#x2603;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
+          return `Snow &#x2603;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Mist`:
         return
-      case `Smoke &#x2601;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
+      case `Smoke &#x2601;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`:
         return
-      case `Haze &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
+      case `Haze &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`:
         return
-      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
+      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`:
         return
       case `Fog`:
-        return `Fog &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`;
+        return `Fog &#x1F32B;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Sand`:
         return
-      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc} -</span>`:
+      case `Dust<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`:
           return
-      case `Ash<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`:
+      case `Ash<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`:
         return
-      case `Squall<br/>$<span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`:
+      case `Squall<br/>$<span style="color:gray;">- ${apiWeatherDesc}</span>`:
         return
       case `Tornado`:
-        return `Tornado &#x1F32A;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`;
+        return `Tornado &#x1F32A;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`;
       case `Clear`:
-        return `Clear &#x263C;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>`
+        return `Clear &#x263C;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>`
       case `Clouds`:
-        return `Clouds &#x2601;<br/><span style="color:gray;"><span style="color:gray;">- ${apiWeatherDesc} -</span></span>` 
+        return `Clouds &#x2601;<br/><span style="color:gray;">- ${apiWeatherDesc}</span>` 
       default:
-        return `${apiWeatherMain}</br><span style="color:gray;"><span style="color:gray;font-family:">- ${apiWeatherDesc} -</span></span>`;
+        return `${apiWeatherMain}</br><span style="color:gray;"><span style="color:gray;font-family:">- ${apiWeatherDesc}</span>`;
     }
   }
 
@@ -183,6 +195,8 @@ const renderForecast = (city, forecast) => {
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${kelvinToF(day.main.temp)}°F</strong></span></p>
+              <p class="card-text"><span style="color:gray;">- high of ${kelvinToF(day.main.temp_max)}</span></p>
+              <p class="card-text"><span style="color:gray;">- low of ${kelvinToF(day.main.temp_min)}</span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
               <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${day.wind.speed}</span></p>
               <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}</span></p>
