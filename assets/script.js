@@ -80,8 +80,8 @@ const fetchWeather = (coordsData) => {
       }
 
       let lastDayObj = data.list.pop();
-      let lastDayObjDate = lastDayObj.dt_txt;
-      let lastDayForecastDate = fiveDayForecast[fiveDayForecast.length - 1].dt_txt;
+      let lastDayObjDate = lastDayObj.dt;
+      let lastDayForecastDate = fiveDayForecast[fiveDayForecast.length - 1].dt;
 
       // Sometimes (evening times) openweathermap will give data for 5 days instead of 6.
       // When this happens, days 4 and 5 of the 5-day forecast have the same date and todays date is not included.
@@ -89,22 +89,20 @@ const fetchWeather = (coordsData) => {
       // However, I can prevent duplicate dates from being added to the forecast array with the following if/else statement.
       ////////// Summary: If only 5 days of weather data are supplied by the API, then 5 days of weather data are shown.
       //////////  If 6 days of weather data are supplide by the API, then 6 days of weather data are shown!
-      console.log(dayjs(lastDayObjDate).format(`YYYY MM DD`));
-      console.log(dayjs(lastDayForecastDate).format(`YYYY MM DD`));
+      console.log(dayjs.unix(lastDayObjDate).format(`YYYY MM DD`));
+      console.log(dayjs.unix(lastDayForecastDate).format(`YYYY MM DD`));
 
-      if (dayjs(lastDayObjDate).format(`YYYY MM DD`) !== dayjs(fiveDayForecast[fiveDayForecast.length - 1].dt_txt).format(`YYYY MM DD`)) {
+      if (dayjs(lastDayObjDate).format(`YYYY MM DD`) !== dayjs.unix(lastDayForecastDate).format(`YYYY MM DD`)) {
         fiveDayForecast.push(data.list.pop());
         console.log(`Last date of forecast data does not equal last date of forecast array. Added last day (day 6 of forecast array, day 5 of 5 day not including today).`);
       } else {
-        console.log(`Last date of forecast array and last date of api data.list match. The API is not including today's weather in fetched results :/`);
         fetch(currentDayApiUrl)
           .then(function(response) {
             return response.json();
           })
           .then(function(data) {
             fiveDayForecast.splice(1, 0, data);
-            fiveDayForecast[0].dt_txt = dayjs().format(`YYYY-MM-DD`)
-            console.log(fiveDayForecast);
+            console.log(`Last date of forecast array and last date of api data.list match. The API is not including today's weather in fetched results so they have been pulled seperately`);
           })
       }
 
@@ -133,14 +131,14 @@ const renderForecast = (city, forecast) => {
 
   // the date is the current date, then return string 'today'
   function checkCurrentDay(day) {
-    let currentDay = dayjs().format(`YYYY MM DD`);
-    let forecastDate = forecast[day].dt
-    let forecastDay = dayjs.unix(forecastDate).format('YYYY MM DD');
-    console.log(forecast[day].dt);
+    let currentDay = dayjs().format(`dddd[, ]MMM D`);
+    let forecastUnixTimestamp = forecast[day].dt
+    let forecastDay = dayjs.unix(forecastUnixTimestamp).format('dddd[, ]MMM D');
+    //console.log(`current day is: ${currentDay}\ncomparison day is: ${forecastDay}`);
     if (forecastDay === currentDay) {
       return `Today`;
     } else {
-      return dayjs.unix(forecast[day].dt).format("dddd[, ]MMM D");
+      return forecastDay;
     }
   }
 
