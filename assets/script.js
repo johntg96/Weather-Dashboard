@@ -217,15 +217,15 @@ const renderForecast = (city, forecast) => {
       mainContentForecast.append(`
       <div class="col-md-4">
         <div class="card mt-2">
-          <div class="card-header row justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 20px;">
+          <div class="card-header d-flex justify-content-center" style="font-family:'Bebas Neue',sans-serif;font-size: 20px;">
             ${checkCurrentDay(index)}
           </div>
             <div class="card-body">
               <p class="card-text">Temperature: <span style="font-family: monospace;"><strong>${parseInt(day.main.temp)}°F</strong></span></p>
               <p class="card-text">Description: ${addDescription(day.weather[0].main, day.weather[0].description)}</p>
-              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 14px;">${parseInt(day.wind.speed)} mph</span></p>
-              <p class="card-text"><span style="color:gray;font-size:14px;">- gusts up to ${parseInt(day.wind.gust)} mph</p>
-              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 14px;">${day.main.humidity}%</span></p>
+              <p class="card-text">Wind: <span style="font-family: monospace;font-size: 12px;">${parseInt(day.wind.speed)} mph</span></p>
+              <p class="card-text"><span style="color:gray;font-size:12px;">- gusts up to ${parseInt(day.wind.gust)} mph</p>
+              <p class="card-text">Humidity: <span style="font-family: monospace;font-size: 12px;">${day.main.humidity}%</span></p>
             </div>
         </div>
         </div>
